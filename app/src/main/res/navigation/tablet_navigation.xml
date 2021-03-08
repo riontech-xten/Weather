@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tablet_navigation"
+    app:startDestination="@+id/fragment_city_weather">
+
+    <fragment
+        android:id="@+id/fragment_bookmark"
+        android:name="com.xtensolutions.weatherapp.ui.fragment.BookmarkFragment"
+        android:label="@string/bookmark"
+        tools:layout="@layout/fragment_bookmark_map" />
+
+    <fragment
+        android:id="@+id/fragment_city_weather"
+        android:name="com.xtensolutions.weatherapp.ui.fragment.CityWeatherFragment"
+        android:label="@string/weather"
+        tools:layout="@layout/fragment_city_weather">
+        <argument
+            android:name="city"
+            app:argType="com.xtensolutions.weatherapp.room.model.BookmarkCity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_search_city"
+        android:name="com.xtensolutions.weatherapp.ui.fragment.SearchCityFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search_cities" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.xtensolutions.weatherapp.ui.fragment.SettingFragment"
+        android:label="@string/title_setting"
+        tools:layout="@layout/fragment_setting" />
+
+    <fragment
+        android:id="@+id/navigation_help"
+        android:name="com.xtensolutions.weatherapp.ui.fragment.HelpFragment"
+        android:label="@string/title_help"
+        tools:layout="@layout/fragment_help" />
+</navigation>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.xtensolutions.weatherapp.data.model.WeatherData" />
+
+        <variable
+            name="unit"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/txtTemp"
+            style="@style/Theme.WeatherApp.HeaderCaption"
+            android:layout_height="wrap_content"
+            android:text="@string/temperature"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTempValue"
+            style="@style/Theme.WeatherApp.WeatherValue"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(data.main.temp)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTemp"
+            bind:unit="@{unit}" />
+
+        <TextView
+            android:id="@+id/txtHumidity"
+            style="@style/Theme.WeatherApp.HeaderCaption"
+            android:layout_height="wrap_content"
+            android:text="@string/humidity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtHumidityValue"
+            style="@style/Theme.WeatherApp.WeatherValue"
+            android:layout_height="wrap_content"
+            android:text="@{data.main.humidityWithUnit}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTemp" />
+
+        <TextView
+            android:id="@+id/txtWindSpeed"
+            style="@style/Theme.WeatherApp.HeaderCaption"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/wind_speed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTempValue" />
+
+        <TextView
+            android:id="@+id/txtWindSpeedValue"
+            style="@style/Theme.WeatherApp.WeatherValue"
+            android:layout_height="wrap_content"
+            android:text="@{data.wind.speedWithUnit()}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtWindSpeed" />
+
+        <TextView
+            android:id="@+id/txtChanceOfRain"
+            style="@style/Theme.WeatherApp.HeaderCaption"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/chance_of_rain"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtHumidityValue" />
+
+        <TextView
+            android:id="@+id/txtRainChanceValue"
+            style="@style/Theme.WeatherApp.WeatherValue"
+            android:layout_height="wrap_content"
+            android:text="0%"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtChanceOfRain" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

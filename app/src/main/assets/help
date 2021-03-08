@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+</head>
+<body>
+<h1 style="color: #5e9ca0;">Guideline to use <span style="color: #2b2301;">WeatherApp</span></h1>
+
+<p>WeatherApp is very small application, update and shown the information regarding the daily
+    weather of city.You can get update of temperature, humidity, chance of rain, cloudy, wind speed
+    daily or for next 5 days either of your current city or any bookmarked city. .&nbsp;</p>
+<h3 style="color: #2e6c80;">How does the app behave and help you to get a weather update?</h3>
+<h4 style="color: #2b2301;">Home Screen</h4>
+<ul>
+    <li>
+        <p>Display your current city weather information at the top of view with your city name and
+            cloudy</p>
+    </li>
+    <li>
+        <p>You can bookmarked any city either placing pin on map or search to view those cities
+            weather info in future.</p>
+    </li>
+    <li>
+        <p>Listed all bookmarked cities with the remove option.</p>
+    </li>
+    <li>
+        <p>You can see the bookmarked city weather or forecast details to click on name of city</p>
+    </li>
+</ul>
+<h4 style="color: #2b2301;">Bookmark on Map</h4>
+<ul>
+    <li>
+        <p>Just drag and put a marker on the location of the map, a bookmark popup at the bottom of
+            the screen will appear.</p>
+    </li>
+    <li>
+        <p>Click on the bookmark button to save your selected city, which weather info you want to
+            see in future.</p>
+    </li>
+</ul>
+<h4 style="color: #2b2301;">Weather Screenp</h4>
+<ul>
+    <li>
+        <p>This screen will show you today weather info with cloudy, wind, temp, chance of rain and
+            humidity.</p>
+    </li>
+    <li>
+        <p>5 days forecast also will display with 3 hours interval of weather.</p>
+    </li>
+</ul>
+<h4 style="color: #2b2301;">Setting Screen</h4>
+<ul>
+    <li>
+        <p>Here you can set your preference for future view</p>
+    </li>
+    <li>
+        <p>You can change the unit of temperature measurement either celsius or Fahrenheit.</p>
+    </li>
+    <li>
+        <p>You can also reset your bookmarked list by click on <strong>Reset bookmarked
+            list</strong></p>
+    </li>
+</ul>
+<p><strong>Note:</strong> All data has been derived using<strong> http://openweathermap.org</strong>
+    api</p>
+<p><strong>&nbsp;</strong></p>
+</body>
+</html>

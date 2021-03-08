@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_setting"
+        android:iconTint="@color/white_80"
+        android:title="@string/title_setting"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_help"
+        android:icon="@drawable/ic_help"
+        android:iconTint="@color/white_80"
+        android:title="@string/title_help"
+        app:showAsAction="always" />
+
+</menu>
