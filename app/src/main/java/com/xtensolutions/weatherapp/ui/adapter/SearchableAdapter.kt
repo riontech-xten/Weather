@@ -31,8 +31,8 @@ abstract class SearchableAdapter<T>(searchableList: MutableList<T>) :
 
                     for (position in 0 until dataList.size - 1) {
                         val value =
-                            searchableValue(position).toLowerCase(Locale.getDefault()).trim()
-                        val lowerQuery = query.toString().toLowerCase(Locale.getDefault()).trim()
+                            searchableValue(position).lowercase(Locale.getDefault()).trim()
+                        val lowerQuery = query.toString().lowercase(Locale.getDefault()).trim()
 
                         if (value.contains(lowerQuery)) {
                             System.out.println("Search result added::$value")

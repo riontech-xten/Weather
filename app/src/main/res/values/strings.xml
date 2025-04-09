@@ -36,4 +36,5 @@
     <string name="city_loading">Wait cities loading...</string>
     <string name="search">Search city</string>
     <string name="added_to_bookmark">Added to bookmark list successfully</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

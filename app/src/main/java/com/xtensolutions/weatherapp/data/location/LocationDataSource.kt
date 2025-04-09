@@ -69,7 +69,7 @@ class LocationDataSource @Inject constructor(
 //                    }
 //                }
 //            }
-            return address[0].locality
+            return address?.get(0)?.locality ?: "N/A"
         } catch (e: Exception) {
             return "N/A"
         }

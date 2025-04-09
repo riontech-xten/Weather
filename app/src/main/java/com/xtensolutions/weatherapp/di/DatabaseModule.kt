@@ -11,8 +11,8 @@ import com.xtensolutions.weatherapp.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -20,7 +20,7 @@ import javax.inject.Singleton
  * vaghela.mithun@gmail.com
  */
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {
     @Provides

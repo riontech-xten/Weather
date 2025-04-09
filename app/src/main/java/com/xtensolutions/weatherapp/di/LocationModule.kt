@@ -8,19 +8,16 @@ import com.xtensolutions.weatherapp.WeatherApp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.util.*
-import javax.inject.Singleton
+import dagger.hilt.components.SingletonComponent
+import java.util.Locale
 
 
 /**
  * Created by Vaghela Mithun R. on 18/02/21.
  * vaghela.mithun@gmail.com
  */
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class LocationModule {
 

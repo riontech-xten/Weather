@@ -132,7 +132,7 @@
                 android:gravity="center"
                 android:text="@string/empty_bookmark_msg"
                 android:textAllCaps="false"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:visibility="gone"
                 app:icon="@drawable/ic_add_more_location"
                 app:iconGravity="top"

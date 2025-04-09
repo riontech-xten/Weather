@@ -42,7 +42,7 @@ abstract class LocationFragment : Fragment() {
     private fun requestUserLocation() {
         locationViewModel.locationLiveData.observe(viewLifecycleOwner, {
             if (it != null) {
-                onLocationUpdate(it.lastLocation)
+                it.lastLocation?.let { it1 -> onLocationUpdate(it1) }
             }
         })
     }

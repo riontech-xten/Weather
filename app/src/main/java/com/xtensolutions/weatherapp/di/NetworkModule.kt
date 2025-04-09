@@ -5,7 +5,7 @@ import com.xtensolutions.weatherapp.network.WeatherClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +18,7 @@ import javax.inject.Singleton
  * Created by Vaghela Mithun R. on 17/02/21.
  * vaghela.mithun@gmail.com
  */
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 class NetworkModule {
 

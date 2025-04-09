@@ -1,9 +1,12 @@
 package com.xtensolutions.weatherapp.ui.fragment
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.IntentCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -29,13 +32,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class CityWeatherFragment : Fragment() {
     private val viewModel: WeatherViewModel by viewModels()
     private lateinit var binding: FragmentCityWeatherBinding
-    private lateinit var city: BookmarkCity
+    private var city: BookmarkCity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCityWeatherBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -43,9 +46,13 @@ class CityWeatherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.unitCode = Constants.SYS_CELSIUS
-        if (arguments!!.containsKey("city")) {
-            city = arguments!!.getSerializable("city") as BookmarkCity
-            binding.txtCityName.text = city.name
+        if (requireArguments().containsKey("city")) {
+            city = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                requireArguments().getSerializable("city", BookmarkCity::class.java)
+            } else {
+                requireArguments().getSerializable("city") as BookmarkCity
+            }
+            binding.txtCityName.text = city?.name
             binding.unitCode = viewModel.getUnitsCode()
             getTodayWeather()
             get5DayForecast()
@@ -53,30 +60,34 @@ class CityWeatherFragment : Fragment() {
     }
 
     private fun getTodayWeather() {
-        viewModel.getTodayWeather(city.latitude, city.longitude)
-            .observe(viewLifecycleOwner, Observer {
-                when (it) {
+        city?.let {
+            viewModel.getTodayWeather(it.latitude, it.longitude).observe(viewLifecycleOwner) { result ->
+                when (result) {
                     is DataResult.Success -> {
-                        binding.weather = it.data
+                        binding.weather = result.data
                         binding.unitCode = viewModel.getUnitsCode()
                         binding.executePendingBindings()
                     }
-                    is DataResult.Fail -> showFailMsg(it.message)
+
+                    is DataResult.Fail -> showFailMsg(result.message)
                     else -> binding.txt5dayDataLoading.visibility = View.VISIBLE
                 }
-            })
+            }
+        }
     }
 
     private fun get5DayForecast() {
-        viewModel.get5DaysForecast(city.latitude, city.longitude)
-            .observe(viewLifecycleOwner, Observer {
+        city?.let {
+            viewModel.get5DaysForecast(it.latitude, it.longitude).observe(viewLifecycleOwner) { result ->
                 binding.txt5dayDataLoading.visibility = View.GONE
-                when (it) {
-                    is DataResult.Success -> setupForecastData(it.data)
-                    is DataResult.Fail -> showFailMsg(it.message)
+                when (result) {
+                    is DataResult.Success -> setupForecastData(result.data)
+                    is DataResult.Fail -> showFailMsg(result.message)
                     else -> binding.txt5dayDataLoading.visibility = View.VISIBLE
                 }
-            })
+            }
+        }
+
     }
 
     private fun showFailMsg(message: String) {

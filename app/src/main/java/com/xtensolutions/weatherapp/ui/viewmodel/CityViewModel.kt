@@ -1,19 +1,20 @@
 package com.xtensolutions.weatherapp.ui.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xtensolutions.weatherapp.data.city.CityRepository
 import com.xtensolutions.weatherapp.room.model.BookmarkCity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 
 /**
  * Created by Vaghela Mithun R. on 19/02/21.
  * vaghela.mithun@gmail.com
  */
-class CityViewModel @ViewModelInject constructor(private val cityRepository: CityRepository) :
+@HiltViewModel
+class CityViewModel @Inject constructor(private val cityRepository: CityRepository) :
     BaseViewModel() {
     fun getCities() = getAssetResult {
         cityRepository.getCities()

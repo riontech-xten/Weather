@@ -1,12 +1,12 @@
 package com.xtensolutions.weatherapp.ui.viewmodel
 
 import android.location.Location
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.codeglo.gowhereuser.location.LocationRepository
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -16,7 +16,8 @@ import javax.inject.Inject
  * Created by Vaghela Mithun R. on 18/02/21.
  * vaghela.mithun@gmail.com
  */
-class LocationViewModel @ViewModelInject constructor(val locationRepository: LocationRepository) :
+@HiltViewModel
+class LocationViewModel @Inject constructor(val locationRepository: LocationRepository) :
     ViewModel() {
     var locationLiveData: MutableLiveData<LocationResult> = MutableLiveData()
 
@@ -27,7 +28,7 @@ class LocationViewModel @ViewModelInject constructor(val locationRepository: Loc
 
     fun requestLocationUpdate() {
         locationRepository.requestLocationUpdate(object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult?) {
+            override fun onLocationResult(result: LocationResult) {
                 super.onLocationResult(result)
                 locationLiveData.value = result
                 locationRepository.removeLocationUpdate(this)

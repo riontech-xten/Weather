@@ -1,20 +1,18 @@
 package com.xtensolutions.weatherapp.ui.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.viewModelScope
 import com.xtensolutions.weatherapp.data.preference.PreferenceHelper
 import com.xtensolutions.weatherapp.data.weather.WeatherRepository
-import com.xtensolutions.weatherapp.room.model.BookmarkCity
 import com.xtensolutions.weatherapp.utils.Constants
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 
 /**
  * Created by Vaghela Mithun R. on 17/02/21.
  * vaghela.mithun@gmail.com
  */
-
-class WeatherViewModel @ViewModelInject constructor(
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
     private val weatherRepository: WeatherRepository,
     private val preferenceHelper: PreferenceHelper
 ) : BaseViewModel() {

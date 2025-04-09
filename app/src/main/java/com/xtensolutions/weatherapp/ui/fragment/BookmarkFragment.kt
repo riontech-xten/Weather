@@ -40,7 +40,7 @@ class BookmarkFragment : LocationFragment(), OnMapReadyCallback, GoogleMap.OnMar
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentBookmarkMapBinding.inflate(inflater, container, false)
         val mapFragment = childFragmentManager
@@ -50,14 +50,14 @@ class BookmarkFragment : LocationFragment(), OnMapReadyCallback, GoogleMap.OnMar
         return binding.root
     }
 
-    override fun onMapReady(map: GoogleMap?) {
-        mMap = map!!
+    override fun onMapReady(map: GoogleMap) {
+        mMap = map
     }
 
     private fun locationConvertToBookmarkCity(location: Location): BookmarkCity {
         return location.let {
             val name = locationViewModel.getAddress(it)
-            return BookmarkCity(name, it.latitude, it.longitude)
+            return@let BookmarkCity(name, it.latitude, it.longitude)
         }
     }
 
@@ -95,19 +95,19 @@ class BookmarkFragment : LocationFragment(), OnMapReadyCallback, GoogleMap.OnMar
         bottomDialog.show()
     }
 
-    override fun onMarkerDragStart(marker: Marker?) {
+    override fun onMarkerDragStart(marker: Marker) {
 
     }
 
-    override fun onMarkerDrag(marker: Marker?) {
+    override fun onMarkerDrag(marker: Marker) {
 
     }
 
-    override fun onMarkerDragEnd(marker: Marker?) {
+    override fun onMarkerDragEnd(marker: Marker) {
         mMap.clear()
         val location = Location(LocationManager.GPS_PROVIDER).apply {
-            longitude = marker!!.position.longitude
-            latitude = marker!!.position.latitude
+            longitude = marker.position.longitude
+            latitude = marker.position.latitude
         }
 
         val city = locationConvertToBookmarkCity(location)

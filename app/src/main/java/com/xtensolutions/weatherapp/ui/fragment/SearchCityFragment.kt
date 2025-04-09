@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
-    SearchView.OnQueryTextListener {
+                           SearchView.OnQueryTextListener {
 
     private val cityViewModel: CityViewModel by viewModels()
     private lateinit var binding: FragmentSearchCitiesBinding
@@ -45,6 +45,7 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListView()
         loadCities()
         setupSearchBar()
         setAddToBookmarkListener()
@@ -85,15 +86,18 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
         })
     }
 
-    private fun bindCitiesData(list: List<BookmarkCity>) {
+    private fun initListView() {
         var layoutManager = LinearLayoutManager(requireContext())
         if (requireContext().isTablet())
             layoutManager = GridLayoutManager(requireContext(), 3)
-
-        binding.cityList.layoutManager = layoutManager
-        adapter = CityAdapter(requireContext(), list.toMutableList())
+        adapter = CityAdapter(requireContext(), ArrayList())
         adapter.viewHolderClickListener = this
+        binding.cityList.layoutManager = layoutManager
         binding.cityList.adapter = adapter
+    }
+
+    private fun bindCitiesData(list: List<BookmarkCity>) {
+        adapter.updateList(list.toMutableList())
     }
 
     private fun showFailMsg(message: String) {
@@ -101,8 +105,8 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
     }
 
     override fun onViewHolderViewClicked(view: View?, position: Int) {
-        if (view!!.id == R.id.rowSearchContainer) {
-            val city: BookmarkCity = view!!.tag as BookmarkCity
+        if (requireView().id == R.id.rowSearchContainer) {
+            val city: BookmarkCity = requireView().tag as BookmarkCity
             adapter.toggleSelection(position)
         }
     }

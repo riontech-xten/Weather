@@ -33,9 +33,9 @@ class CityDataSource @Inject constructor(
         return cities
     }
 
-    fun fileExists(fileName: String): Boolean {
-        return listOf(context.assets.list("")).contains(fileName)
-    }
+//    fun fileExists(fileName: String): Boolean {
+//        return listOf(context.assets.list("")).contains(fileName)
+//    }
 
     fun getBookmarkedList() = bookmarkDao.getAll()
 
