@@ -2,6 +2,7 @@ package com.xtensolutions.weatherapp.room.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -21,5 +22,9 @@ data class BookmarkCity(
 ) : Serializable {
     fun getLatLng(): String {
         return "$latitude, $longitude"
+    }
+
+    override fun toString(): String {
+        return Gson().toJson(this)
     }
 }

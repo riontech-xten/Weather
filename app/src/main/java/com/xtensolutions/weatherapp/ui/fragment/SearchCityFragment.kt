@@ -1,6 +1,7 @@
 package com.xtensolutions.weatherapp.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +39,7 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchCitiesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -63,7 +64,7 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
     }
 
     private fun addToBookmarkList(items: ArrayList<BookmarkCity>) {
-        cityViewModel.bookmarkCities(items!!.toMutableList()).observe(viewLifecycleOwner, {
+        cityViewModel.bookmarkCities(items.toMutableList()).observe(viewLifecycleOwner, {
             if (it == true) {
                 showToast(R.string.added_to_bookmark)
                 findNavController().popBackStack()
@@ -98,6 +99,7 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
 
     private fun bindCitiesData(list: List<BookmarkCity>) {
         adapter.updateList(list.toMutableList())
+        adapter.updateSearchableList(list.toMutableList())
     }
 
     private fun showFailMsg(message: String) {
@@ -106,7 +108,6 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
 
     override fun onViewHolderViewClicked(view: View?, position: Int) {
         if (requireView().id == R.id.rowSearchContainer) {
-            val city: BookmarkCity = requireView().tag as BookmarkCity
             adapter.toggleSelection(position)
         }
     }
@@ -117,6 +118,7 @@ class SearchCityFragment : Fragment(), BaseViewHolder.ViewHolderClickListener,
 
     override fun onQueryTextChange(newText: String?): Boolean {
         adapter.filter.filter(newText)
+        Log.d(SearchCityFragment::class.simpleName, "Search query::$newText")
         return true
     }
 }

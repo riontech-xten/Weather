@@ -35,6 +35,6 @@ class CityAdapter(val context: Context, var cities: MutableList<BookmarkCity>) :
     }
 
     override fun searchableValue(position: Int): String {
-        return dataList.get(position).name
+        return dataList[position].name
     }
 }

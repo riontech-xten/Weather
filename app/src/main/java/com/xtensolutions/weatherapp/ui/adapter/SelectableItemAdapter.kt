@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
  * Created by Vaghela Mithun R. on 27/01/21.
  * vaghela.mithun@gmail.com
  */
-abstract class SelectableItemAdapter<T>(var items: MutableList<T>) :
+abstract class SelectableItemAdapter<T>(private var items: MutableList<T>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    protected var selectedItems: MutableList<T> = ArrayList()
+    private var selectedItems: MutableList<T> = ArrayList()
 
     open fun toggleSelection(position: Int) {
         val item = getItem(position)
@@ -18,18 +18,18 @@ abstract class SelectableItemAdapter<T>(var items: MutableList<T>) :
     }
 
     private fun toggleSelection(item: T) {
-        if (selectedItems!!.contains(item)) {
-            selectedItems!!.remove(item)
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item)
         } else {
-            selectedItems!!.add(item)
+            selectedItems.add(item)
         }
     }
 
     private fun removeSelection(item: T) {
-        if (selectedItems!!.contains(item)) {
-            selectedItems!!.remove(item)
+        if (selectedItems.contains(item)) {
+            selectedItems.remove(item)
         }
-        notifyDataSetChanged()
+        notifyItemChanged(items.indexOf(item))
     }
 
     open fun selectItem(position: Int) {
@@ -38,17 +38,17 @@ abstract class SelectableItemAdapter<T>(var items: MutableList<T>) :
     }
 
     open fun selectItem(item: T) {
-        if (selectedItems!!.contains(item)) {
+        if (selectedItems.contains(item)) {
             return
         }
-        selectedItems!!.add(item)
-        notifyDataSetChanged()
+        selectedItems.add(item)
+        notifyItemChanged(items.indexOf(item))
     }
 
     open fun selectAllItem() {
-        selectedItems!!.clear()
-        selectedItems!!.addAll(items)
-        notifyDataSetChanged()
+        selectedItems.clear()
+        selectedItems.addAll(items)
+        notifyItemRangeChanged(0, itemCount)
     }
 
     open fun getSelectedItems(): Collection<T>? {
@@ -56,25 +56,27 @@ abstract class SelectableItemAdapter<T>(var items: MutableList<T>) :
     }
 
     open fun isItemSelected(position: Int): Boolean {
-        return !selectedItems!!.isEmpty() && selectedItems!!.contains(getItem(position))
+        return selectedItems.isNotEmpty() && selectedItems.contains(getItem(position))
     }
 
     open fun clearSelection() {
-        selectedItems!!.clear()
-        notifyDataSetChanged()
+        selectedItems.clear()
+        notifyItemRangeChanged(0, itemCount)
     }
 
     open fun getItem(position: Int): T {
-        return items.get(position)
+        return items[position]
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    fun updateList(list: MutableList<T>) {
-        System.out.println("updated list::${list.size}")
-        items = list
-        super.notifyDataSetChanged()
+    open fun updateList(list: MutableList<T>) {
+        println("updated list::${list.size}")
+        notifyItemRangeRemoved(0, itemCount)
+        items.clear()
+        items.addAll(list)
+        notifyItemRangeInserted(0, items.size)
     }
 }
